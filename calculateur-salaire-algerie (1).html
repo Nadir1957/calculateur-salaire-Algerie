@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SalaryCalc DZ">
+<meta name="theme-color" content="#020b18">
+<title>SalaryCalc DZ Pro — Fiche de Paie Complète Algérie</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════ VARIABLES ═══════════ */
+:root{
+  --bg:#020b18; --card:#061525; --pan:#0a1f35; --pan2:#0d2440;
+  --cy:#00d4ff; --cy2:rgba(0,212,255,.12); --go:#f0b429; --go2:rgba(240,180,41,.12);
+  --gr:#00ff9d; --re:#ff4757; --or:#ff8c00;
+  --wa:#25D366; --ms:#0084FF; --pu:#7b2fff;
+  --t1:#e8f4fd; --t2:#7aa8c7;
+  --bo:rgba(0,212,255,.18); --bog:rgba(240,180,41,.28);
+  --gc:0 0 20px rgba(0,212,255,.35); --gg:0 0 20px rgba(240,180,41,.35);
+  --sb:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--t1);
+  min-height:100vh;overflow-x:hidden;padding-bottom:calc(78px + var(--sb));}
+
+/* ── BG ── */
+.bgrid{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(0,212,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,212,255,.03) 1px,transparent 1px);
+  background-size:54px 54px;animation:gm 22s linear infinite;}
+@keyframes gm{to{background-position:54px 54px;}}
+.ob1{position:fixed;top:-150px;left:-150px;width:460px;height:460px;z-index:0;pointer-events:none;
+  background:radial-gradient(circle,rgba(0,212,255,.07) 0%,transparent 70%);animation:o1 9s ease-in-out infinite;}
+.ob2{position:fixed;bottom:-150px;right:-150px;width:540px;height:540px;z-index:0;pointer-events:none;
+  background:radial-gradient(circle,rgba(240,180,41,.05) 0%,transparent 70%);animation:o2 11s ease-in-out infinite;}
+@keyframes o1{0%,100%{transform:translate(0,0)}50%{transform:translate(36px,20px)}}
+@keyframes o2{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,-34px)}}
+
+/* ── WRAP ── */
+.W{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:10px 12px 22px;}
+
+/* ── HEADER ── */
+header{text-align:center;padding:max(env(safe-area-inset-top,0px),12px) 12px 18px;
+  border-bottom:1px solid var(--bo);margin-bottom:18px;}
+.lr{display:flex;align-items:center;justify-content:center;gap:11px;margin-bottom:5px;}
+.hx{width:44px;height:44px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--cy),var(--go));
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Exo 2',sans-serif;font-size:14px;font-weight:900;color:#000;
+  animation:hp 3s ease-in-out infinite;}
+@keyframes hp{0%,100%{filter:drop-shadow(0 0 7px rgba(0,212,255,.6))}50%{filter:drop-shadow(0 0 18px rgba(0,212,255,1))}}
+.ttl{font-family:'Exo 2',sans-serif;font-size:clamp(20px,6vw,38px);font-weight:900;letter-spacing:1px;line-height:1;
+  background:linear-gradient(90deg,var(--cy),var(--go),var(--cy));background-size:200%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:sh 4s linear infinite;}
+@keyframes sh{to{background-position:200%;}}
+.sub{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--t2);text-transform:uppercase;margin-top:4px;}
+.bgs{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-top:9px;}
+.bg{padding:3px 10px;border-radius:20px;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1.5px;
+  color:var(--go);background:var(--go2);border:1px solid rgba(240,180,41,.22);}
+.bg.c{color:var(--cy);background:var(--cy2);border-color:rgba(0,212,255,.22);}
+.bg.g{color:var(--gr);background:rgba(0,255,157,.08);border-color:rgba(0,255,157,.2);}
+
+/* ── MODE ── */
+.mtog{display:flex;background:var(--pan);border:1px solid var(--bo);
+  border-radius:14px;padding:4px;gap:4px;margin:0 auto 16px;width:100%;}
+.mb{flex:1;padding:12px 6px;border-radius:10px;border:none;cursor:pointer;
+  font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;
+  color:var(--t2);background:transparent;transition:all .3s;}
+.mb.on{background:linear-gradient(135deg,var(--cy),#0088bb);color:#000;box-shadow:var(--gc);}
+
+/* ── CARD ── */
+.cd{background:var(--card);border:1px solid var(--bo);
+  border-radius:15px;padding:16px 14px;position:relative;overflow:hidden;margin-bottom:13px;}
+.cd::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--cy),var(--go));}
+.cdg{border-color:var(--bog);}
+.cdg::before{background:linear-gradient(90deg,var(--go),var(--cy));}
+.cdo{border-color:rgba(255,140,0,.28);}
+.cdo::before{background:linear-gradient(90deg,var(--or),var(--go));}
+.cdp{border-color:rgba(123,47,255,.28);}
+.cdp::before{background:linear-gradient(90deg,var(--pu),var(--cy));}
+.ct{font-family:'Exo 2',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--t2);margin-bottom:14px;
+  display:flex;align-items:center;gap:7px;}
+.cti{font-size:14px;color:var(--cy);}
+.cdg .cti{color:var(--go);}
+.cdo .cti{color:var(--or);}
+.cdp .cti{color:var(--pu);}
+
+/* ── SALARY DISPLAY ── */
+.sdp{text-align:center;padding:12px;margin:0 0 14px;
+  background:linear-gradient(135deg,rgba(0,212,255,.05),rgba(240,180,41,.05));
+  border-radius:11px;border:1px solid rgba(0,212,255,.1);}
+.sdv{font-family:'Exo 2',sans-serif;font-size:clamp(24px,7vw,38px);font-weight:900;color:var(--cy);line-height:1;}
+.sdl{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--t2);text-transform:uppercase;margin-top:4px;}
+
+/* ── INPUTS ── */
+.fg{margin-bottom:14px;}
+.fg:last-child{margin-bottom:0;}
+.fl{display:flex;justify-content:space-between;align-items:center;
+  font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1.5px;
+  color:var(--t2);text-transform:uppercase;margin-bottom:6px;}
+.fl .ht{color:var(--go);font-size:9px;}
+.fl .htg{color:var(--gr);font-size:9px;}
+.fl .htr{color:var(--re);font-size:9px;}
+.iw{position:relative;}
+.cu{position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--cy);
+  font-weight:700;pointer-events:none;}
+.cu.pct{color:var(--go);}
+.cu.small{font-size:10px;right:10px;}
+input[type="number"],select{
+  width:100%;padding:14px 52px 14px 13px;
+  background:var(--pan);border:1px solid var(--bo);
+  border-radius:10px;color:var(--t1);
+  font-family:'Share Tech Mono',monospace;font-size:16px;
+  transition:border-color .3s,box-shadow .3s;outline:none;
+  -webkit-appearance:none;appearance:none;}
+select{padding-right:13px;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%2300d4ff' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;}
+input[type="number"]:focus,select:focus{border-color:var(--cy);box-shadow:0 0 0 2px rgba(0,212,255,.1);}
+input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;}
+/* 2-col grid for inputs */
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+
+/* ── RANGE ── */
+.rl{display:flex;justify-content:space-between;margin-bottom:6px;
+  font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--t2);}
+input[type="range"]{width:100%;-webkit-appearance:none;height:7px;
+  background:var(--pan);border-radius:4px;outline:none;cursor:pointer;padding:0;
+  background:linear-gradient(90deg,var(--cy) 0%,var(--pan2) 0%);}
+input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;
+  background:linear-gradient(135deg,var(--cy),var(--go));border-radius:50%;cursor:pointer;
+  box-shadow:0 0 12px rgba(0,212,255,.7),0 2px 7px rgba(0,0,0,.5);}
+input[type="range"]::-moz-range-thumb{width:28px;height:28px;
+  background:linear-gradient(135deg,var(--cy),var(--go));
+  border-radius:50%;border:none;cursor:pointer;}
+
+/* ── SEC HDR ── */
+.sh{font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--cy);opacity:.8;
+  margin:5px 0 10px;display:flex;align-items:center;gap:7px;}
+.sh::before{content:'▸';}
+.sh.go{color:var(--go);}
+.sh.or{color:var(--or);}
+.sh.pu{color:var(--pu);}
+.sh.re{color:var(--re);}
+.sh.gr{color:var(--gr);}
+
+/* ── IEP BADGE ── */
+.iep-result{display:inline-flex;align-items:center;gap:6px;
+  background:rgba(0,255,157,.08);border:1px solid rgba(0,255,157,.2);
+  border-radius:8px;padding:4px 10px;margin-top:6px;
+  font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--gr);}
+
+/* ── TOGGLES ── */
+.tr{display:flex;align-items:center;justify-content:space-between;
+  padding:11px 0;border-bottom:1px solid rgba(255,255,255,.04);gap:11px;}
+.tr:last-child{border-bottom:none;padding-bottom:0;}
+.tlt{flex:1;min-width:0;}
+.tn{font-size:13px;font-weight:600;color:var(--t1);line-height:1.2;}
+.td{font-size:10px;color:var(--t2);margin-top:2px;font-family:'Share Tech Mono',monospace;}
+.tg{width:46px;height:24px;flex-shrink:0;background:var(--pan2);
+  border:1px solid rgba(255,255,255,.1);border-radius:12px;cursor:pointer;
+  position:relative;transition:all .3s;}
+.tg.on{background:var(--cy);border-color:var(--cy);box-shadow:var(--gc);}
+.tg::after{content:'';position:absolute;width:18px;height:18px;background:#fff;
+  border-radius:50%;top:2px;left:2px;transition:transform .3s;box-shadow:0 2px 5px rgba(0,0,0,.4);}
+.tg.on::after{transform:translateX(22px);}
+
+/* ── CALC BTN ── */
+.cbtn{width:100%;padding:17px;margin-top:6px;
+  background:linear-gradient(135deg,var(--cy),#0080aa);
+  border:none;border-radius:13px;cursor:pointer;
+  font-family:'Exo 2',sans-serif;font-size:16px;font-weight:800;
+  letter-spacing:3px;text-transform:uppercase;color:#000;
+  transition:all .25s;position:relative;overflow:hidden;
+  box-shadow:0 4px 22px rgba(0,212,255,.3);min-height:54px;}
+.cbtn:active{transform:scale(.97);opacity:.9;}
+.shine{position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
+  animation:bsh 3s ease-in-out infinite;}
+@keyframes bsh{0%{left:-100%}60%,100%{left:160%}}
+
+/* ══════════════════════════════
+   RESULTS
+══════════════════════════════ */
+.rp{background:var(--card);border:1px solid var(--bog);
+  border-radius:15px;padding:16px 14px;margin-bottom:13px;
+  position:relative;overflow:hidden;}
+.rp::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--go),var(--cy),var(--go));}
+.rptit{font-family:'Exo 2',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--t2);margin-bottom:14px;
+  display:flex;align-items:center;gap:7px;}
+.rptit span{color:var(--go);font-size:13px;}
+
+/* FICHE DE PAIE résumé */
+.fp-band{display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(135deg,rgba(0,212,255,.06),rgba(240,180,41,.06));
+  border:1px solid rgba(240,180,41,.15);border-radius:11px;
+  padding:12px 14px;margin-bottom:14px;gap:8px;flex-wrap:wrap;}
+.fp-item{text-align:center;flex:1;min-width:90px;}
+.fp-lbl{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1.5px;
+  color:var(--t2);text-transform:uppercase;margin-bottom:4px;}
+.fp-val{font-family:'Exo 2',sans-serif;font-size:clamp(16px,4vw,22px);font-weight:900;line-height:1;}
+.fp-val.c{color:var(--cy);text-shadow:0 0 14px rgba(0,212,255,.4);}
+.fp-val.g{color:var(--go);text-shadow:0 0 14px rgba(240,180,41,.4);}
+.fp-val.gr{color:var(--gr);text-shadow:0 0 14px rgba(0,255,157,.4);}
+.fp-val.re{color:var(--re);text-shadow:0 0 14px rgba(255,71,87,.4);}
+
+/* BIG NET */
+.big-net{text-align:center;padding:16px;margin-bottom:14px;
+  background:linear-gradient(135deg,rgba(240,180,41,.08),rgba(0,212,255,.08));
+  border:1px solid var(--bog);border-radius:13px;position:relative;overflow:hidden;}
+.big-net::before{content:'💰 SALAIRE NET À PERCEVOIR';
+  font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;
+  color:var(--go);display:block;margin-bottom:6px;text-transform:uppercase;}
+.big-net-val{font-family:'Exo 2',sans-serif;font-size:clamp(28px,8vw,44px);
+  font-weight:900;color:var(--go);text-shadow:0 0 24px rgba(240,180,41,.5);line-height:1;}
+.big-net-sub{font-size:12px;color:var(--t2);margin-top:5px;font-family:'Share Tech Mono',monospace;}
+
+/* TABLE */
+.bdt{font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--t2);
+  margin:14px 0 8px;display:flex;align-items:center;gap:7px;}
+.bdt::after{content:'';flex:1;height:1px;background:rgba(0,212,255,.13);}
+.bdt.g::after{background:rgba(240,180,41,.18);}
+table{width:100%;border-collapse:collapse;}
+table tr{border-bottom:1px solid rgba(255,255,255,.035);}
+table tr:last-child{border-bottom:none;}
+table td{padding:7px 3px;font-size:12px;vertical-align:middle;}
+table td:last-child{text-align:right;font-family:'Share Tech Mono',monospace;font-size:11px;white-space:nowrap;}
+.pct{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--t2);width:44px;}
+.lbl{color:var(--t2);}
+/* row types */
+.rg td:last-child{color:var(--gr);}   /* gain */
+.ro td:last-child{color:var(--or);}   /* orange */
+.rd td:last-child{color:var(--re);}   /* deduction */
+.rs td{font-weight:700;font-size:12px;border-top:1px solid rgba(255,255,255,.08)!important;}
+.rb td{color:var(--cy);}
+.rn td{color:var(--go);font-size:13px!important;}
+.ri td:last-child{color:var(--cy);}   /* info cyan */
+
+/* BARS */
+.bi{margin-bottom:10px;}
+.bh{display:flex;justify-content:space-between;margin-bottom:5px;font-size:11px;}
+.bn{color:var(--t2);}
+.bv{font-family:'Share Tech Mono',monospace;font-size:10px;}
+.bt{height:9px;background:var(--pan2);border-radius:5px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.04);}
+.bf{height:100%;border-radius:5px;transition:width .9s cubic-bezier(.4,0,.2,1);position:relative;}
+.bf::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.17));}
+.bg-gr{background:linear-gradient(90deg,#00b870,var(--gr));}
+.bg-cy{background:linear-gradient(90deg,#0077aa,var(--cy));}
+.bg-re{background:linear-gradient(90deg,#cc1122,var(--re));}
+.bg-or{background:linear-gradient(90deg,#b06000,var(--or));}
+.bg-pu{background:linear-gradient(90deg,#5500cc,var(--pu));}
+.bg-go{background:linear-gradient(90deg,#b07800,var(--go));}
+
+/* YEAR */
+.ys{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px;
+  background:linear-gradient(135deg,rgba(240,180,41,.04),rgba(0,212,255,.04));
+  border:1px solid rgba(240,180,41,.13);border-radius:11px;padding:12px;}
+.yi{text-align:center;}
+.yl{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1.5px;
+  color:var(--t2);text-transform:uppercase;margin-bottom:4px;}
+.yv{font-family:'Exo 2',sans-serif;font-size:14px;font-weight:700;}
+
+/* ══════════════════════════════
+   SHARE
+══════════════════════════════ */
+.ss{background:var(--card);border:1px solid var(--bo);
+  border-radius:15px;padding:16px 14px;margin-bottom:13px;
+  position:relative;overflow:hidden;}
+.ss::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--wa),var(--ms));}
+.stit{font-family:'Exo 2',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--t2);margin-bottom:12px;
+  display:flex;align-items:center;gap:7px;}
+.stit em{color:var(--wa);font-style:normal;font-size:13px;}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.sb{display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 8px;border-radius:13px;border:none;cursor:pointer;
+  font-family:'Exo 2',sans-serif;font-size:13px;font-weight:700;
+  letter-spacing:.5px;transition:all .25s;text-decoration:none;
+  min-height:52px;color:#fff;}
+.sb:active{transform:scale(.95);}
+.sb-wa{background:linear-gradient(135deg,#0d7a34,var(--wa));box-shadow:0 4px 14px rgba(37,211,102,.28);}
+.sb-ms{background:linear-gradient(135deg,#0055bb,var(--ms));box-shadow:0 4px 14px rgba(0,132,255,.28);}
+.sb-cp{background:var(--pan2);border:1px solid var(--bo);color:var(--t2);}
+.sb-cp:hover,.sb-cp:active{border-color:var(--cy);color:var(--cy);}
+.sb-nt{background:linear-gradient(135deg,#2d1560,var(--pu));box-shadow:0 4px 14px rgba(123,47,255,.28);}
+.si{font-size:19px;line-height:1;flex-shrink:0;}
+
+/* TOAST */
+.toast{position:fixed;bottom:calc(84px + var(--sb));left:50%;
+  transform:translateX(-50%) translateY(14px);
+  background:rgba(0,255,157,.1);border:1px solid var(--gr);
+  color:var(--gr);padding:10px 20px;border-radius:100px;
+  font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;
+  white-space:nowrap;z-index:9999;opacity:0;
+  transition:all .3s;pointer-events:none;backdrop-filter:blur(12px);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ACT */
+.act{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
+.ab{display:flex;align-items:center;justify-content:center;gap:5px;
+  padding:11px;border-radius:9px;border:1px solid var(--bo);
+  background:var(--pan);cursor:pointer;
+  font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--t2);
+  transition:all .3s;min-height:46px;}
+.ab:active{transform:scale(.96);}
+.ab:hover,.ab:active{border-color:var(--cy);color:var(--cy);}
+
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:100;
+  background:rgba(6,21,37,.93);backdrop-filter:blur(22px);
+  border-top:1px solid var(--bo);
+  padding:6px 8px calc(6px + var(--sb));
+  display:flex;gap:5px;}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:7px 3px;border-radius:10px;border:none;cursor:pointer;
+  background:transparent;color:var(--t2);
+  font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:.4px;
+  transition:all .2s;}
+.nb .ni{font-size:19px;line-height:1;}
+.nb-calc{background:linear-gradient(135deg,var(--cy),#0090bb);color:#000;box-shadow:var(--gc);}
+.nb-share{background:linear-gradient(135deg,#0d7a34,var(--wa));color:#fff;}
+.nb:active{transform:scale(.91);}
+
+/* NOTICE */
+.notice{background:rgba(240,180,41,.04);border:1px solid rgba(240,180,41,.13);
+  border-radius:9px;padding:10px 12px;font-size:10px;
+  color:var(--t2);line-height:1.7;margin-top:11px;
+  font-family:'Share Tech Mono',monospace;}
+.notice strong{color:var(--go);}
+/* sector notice */
+.sect-info{display:flex;align-items:flex-start;gap:8px;
+  background:rgba(123,47,255,.06);border:1px solid rgba(123,47,255,.2);
+  border-radius:9px;padding:9px 12px;margin-top:8px;font-size:11px;
+  color:var(--t2);font-family:'Share Tech Mono',monospace;line-height:1.6;
+  display:none;}
+.sect-info.show{display:flex;}
+.sect-info strong{color:var(--pu);}
+
+footer{text-align:center;padding:16px 12px;color:var(--t2);
+  font-size:9px;letter-spacing:1px;border-top:1px solid var(--bo);margin-top:8px;
+  font-family:'Share Tech Mono',monospace;}
+footer strong{color:var(--cy);}
+
+.hidden{display:none!important;}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.anim{animation:fu .4s ease forwards;}
+
+/* col2 helper */
+.c2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+/* DESKTOP */
+@media(min-width:768px){
+  .bnav{display:none;}
+  body{padding-bottom:18px;}
+  .W{padding:16px 22px 30px;}
+  .fp-band{flex-wrap:nowrap;}
+  .sg{grid-template-columns:repeat(4,1fr);}
+  .ys{grid-template-columns:repeat(5,1fr);}
+}
+</style>
+</head>
+<body>
+<div class="bgrid"></div><div class="ob1"></div><div class="ob2"></div>
+<div class="toast" id="toast"></div>
+
+<div class="W">
+
+<!-- HEADER -->
+<header>
+  <div class="lr">
+    <div class="hx">DZ</div>
+    <h1 class="ttl">SalaryCalc DZ</h1>
+  </div>
+  <div class="sub">Fiche de Paie Complète · Algérie</div>
+  <div class="bgs">
+    <span class="bg">BARÈME 2024</span>
+    <span class="bg c">CNAS · IRG</span>
+    <span class="bg c">CACOBATPH</span>
+    <span class="bg g">IEP · PANIER</span>
+  </div>
+</header>
+
+<!-- MODE -->
+<div class="mtog">
+  <button class="mb on" id="btn-bn" onclick="setMode('bn')">⬇ Brut → Net</button>
+  <button class="mb" id="btn-nb" onclick="setMode('nb')">⬆ Net → Brut</button>
+</div>
+
+<!-- ═══ CARD 1 : SALAIRE DE BASE ═══ -->
+<div class="cd">
+  <div class="ct"><span class="cti">⬡</span><span id="ict">Salaire de Base Brut</span></div>
+  <div class="sdp">
+    <div class="sdv" id="sdv">80 000 DA</div>
+    <div class="sdl" id="sdl">Salaire de base saisi</div>
+  </div>
+  <div class="fg">
+    <div class="fl"><span id="lbs">SALAIRE DE BASE (DA)</span><span class="ht" id="lbh">S.N.B min: 20 000 DA</span></div>
+    <div class="iw">
+      <input type="number" id="si" inputmode="numeric" placeholder="20000" min="0" value="80000" oninput="sync('i')">
+      <span class="cu">DA</span>
+    </div>
+  </div>
+  <div class="fg">
+    <div class="rl"><span>0</span><span>600 000 DA</span></div>
+    <input type="range" id="sr" min="0" max="600000" step="500" value="80000" oninput="sync('r')">
+  </div>
+  <div class="fg">
+    <div class="fl"><span>SECTEUR / CAISSE SOCIALE</span></div>
+    <div class="iw">
+      <select id="sect" onchange="onSectChange()">
+        <option value="prive">🏭 Secteur Privé — CNAS</option>
+        <option value="public">🏛 Secteur Public — CNAS</option>
+        <option value="btp">🏗 BTP — CACOBATPH</option>
+        <option value="cadre">💼 Cadre Supérieur — CNAS</option>
+        <option value="etranger">🌐 Société Étrangère</option>
+      </select>
+    </div>
+  </div>
+  <!-- Sector info box -->
+  <div class="sect-info" id="sect-info"></div>
+</div>
+
+<!-- ═══ CARD 2 : INDEMNITÉS EXONÉRÉES ═══ -->
+<div class="cd cdo">
+  <div class="ct"><span class="cti">⬡</span>Indemnités Exonérées IRG</div>
+  <div class="sh or">Non soumises à l'IRG ni à la CNAS</div>
+  <div class="c2">
+    <div class="fg">
+      <div class="fl"><span>TRANSPORT (DA/MOIS)</span><span class="htg">Exo.</span></div>
+      <div class="iw">
+        <input type="number" id="i-transp" inputmode="numeric" placeholder="0" min="0" value="0" oninput="calc()">
+        <span class="cu small">DA</span>
+      </div>
+    </div>
+    <div class="fg">
+      <div class="fl"><span>PANIER (DA/JOUR)</span><span class="htg">Exo.</span></div>
+      <div class="iw">
+        <input type="number" id="i-panier" inputmode="numeric" placeholder="0" min="0" value="0" oninput="calc()">
+        <span class="cu small">DA</span>
+      </div>
+    </div>
+  </div>
+  <div class="c2">
+    <div class="fg">
+      <div class="fl"><span>JOURS TRAVAILLÉS</span></div>
+      <div class="iw">
+        <input type="number" id="i-jours" inputmode="numeric" placeholder="26" min="1" max="31" value="26" oninput="calc()">
+        <span class="cu small">j</span>
+      </div>
+    </div>
+    <div class="fg">
+      <div class="fl"><span>PANIER TOTAL (auto)</span></div>
+      <div class="iw">
+        <input type="number" id="i-panier-total" readonly placeholder="0"
+          style="background:rgba(0,255,157,.04);border-color:rgba(0,255,157,.2);color:var(--gr);">
+        <span class="cu small" style="color:var(--gr)">DA</span>
+      </div>
+    </div>
+  </div>
+  <div class="fg">
+    <div class="fl"><span>INDEMNITÉ DE LOGEMENT (DA/MOIS)</span><span class="htg">Exo.</span></div>
+    <div class="iw">
+      <input type="number" id="i-logmt" inputmode="numeric" placeholder="0" min="0" value="0" oninput="calc()">
+      <span class="cu">DA</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CARD 3 : IEP & PRIMES IMPOSABLES ═══ -->
+<div class="cd cdg">
+  <div class="ct"><span class="cti">⬡</span>Primes & Indemnités Imposables</div>
+
+  <!-- IEP -->
+  <div class="sh go">IEP — Indemnité d'Expérience Professionnelle</div>
+  <div class="c2">
+    <div class="fg">
+      <div class="fl"><span>ANNÉES ANCIENNETÉ</span><span class="htg">1%/an (max 25%)</span></div>
+      <div class="iw">
+        <input type="number" id="i-anc" inputmode="numeric" placeholder="0" min="0" max="25" value="0" oninput="calcIEP()">
+        <span class="cu small" style="color:var(--go)">ans</span>
+      </div>
+    </div>
+    <div class="fg">
+      <div class="fl"><span>TAUX IEP (AUTO)</span></div>
+      <div class="iw">
+        <input type="number" id="i-iep-pct" readonly placeholder="0"
+          style="background:rgba(240,180,41,.04);border-color:rgba(240,180,41,.2);color:var(--go);">
+        <span class="cu pct">%</span>
+      </div>
+    </div>
+  </div>
+  <div id="iep-badge" class="iep-result hidden">✔ IEP = <span id="iep-val">0 DA</span></div>
+
+  <!-- Other primes imposables -->
+  <div class="sh go" style="margin-top:12px">Autres Primes Imposables</div>
+  <div class="c2">
+    <div class="fg">
+      <div class="fl"><span>PRIME DE RENDEMENT</span></div>
+      <div class="iw">
+        <input type="number" id="i-rend" inputmode="numeric" placeholder="0" min="0" value="0" oninput="calc()">
+        <span class="cu small">DA</span>
+      </div>
+    </div>
+    <div class="fg">
+      <div class="fl"><span>PRIME DE NUISANCE</span></div>
+      <div class="iw">
+        <input type="number" id="i-nuis" inputmode="numeric" placeholder="0" min="0" value="0" oninput="calc()">
+        <span class="cu small">DA</span>
+      </div>
+    </div>
+  </div>
+  <div class="c2">
+    <div class="fg">
+      <div class="fl"><span>PRIME DE ZONE / RÉGION</span></div>
+      <div class="iw">
+        <input type="number" id="i-zone" inputmode="numeric" placeholder="0" min="0" value="0" oninput="calc()">
+        <span class="cu small">DA</span>
+      </div>
+    </div>
+    <div class="fg">
+      <div class="fl"><span>PRIME D'ASTREINTE</span></div>
+      <div class="iw">
+        <input type="number" id="i-astr" inputmode="numeric" placeholder="0" min="0" value="0" oninput="calc()">
+        <span class="cu small">DA</span>
+      </div>
+    </div>
+  </div>
+  <div class="c2">
+    <div class="fg">
+      <div class="fl"><span>PRIME 13ème MOIS (1/12)</span><span class="ht">Mensuel</span></div>
+      <div class="iw">
+        <input type="number" id="i-13m" inputmode="numeric" placeholder="0" min="0" value="0" oninput="calc()">
+        <span class="cu small">DA</span>
+      </div>
+    </div>
+    <div class="fg">
+      <div class="fl"><span>AUTRES PRIMES</span></div>
+      <div class="iw">
+        <input type="number" id="i-aut" inputmode="numeric" placeholder="0" min="0" value="0" oninput="calc()">
+        <span class="cu small">DA</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CARD 4 : HEURES SUPPLÉMENTAIRES ═══ -->
+<div class="cd cdp">
+  <div class="ct"><span class="cti">⬡</span>Heures Supplémentaires</div>
+  <div class="sh pu">Calculées sur le taux horaire</div>
+  <div class="c2">
+    <div class="fg">
+      <div class="fl"><span>H. SUP 50% (j. normaux)</span></div>
+      <div class="iw">
+        <input type="number" id="i-hs50" inputmode="numeric" placeholder="0" min="0" value="0" oninput="calc()">
+        <span class="cu small" style="color:var(--pu)">h</span>
+      </div>
+    </div>
+    <div class="fg">
+      <div class="fl"><span>H. SUP 75% (nuit)</span></div>
+      <div class="iw">
+        <input type="number" id="i-hs75" inputmode="numeric" placeholder="0" min="0" value="0" oninput="calc()">
+        <span class="cu small" style="color:var(--pu)">h</span>
+      </div>
+    </div>
+  </div>
+  <div class="c2">
+    <div class="fg">
+      <div class="fl"><span>H. SUP 100% (fériés/R.H.)</span></div>
+      <div class="iw">
+        <input type="number" id="i-hs100" inputmode="numeric" placeholder="0" min="0" value="0" oninput="calc()">
+        <span class="cu small" style="color:var(--pu)">h</span>
+      </div>
+    </div>
+    <div class="fg">
+      <div class="fl"><span>TOTAL H.SUP (auto)</span></div>
+      <div class="iw">
+        <input type="number" id="i-hs-tot" readonly placeholder="0"
+          style="background:rgba(123,47,255,.05);border-color:rgba(123,47,255,.2);color:var(--pu);">
+        <span class="cu small" style="color:var(--pu)">DA</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CARD 5 : OPTIONS ═══ -->
+<div class="cd">
+  <div class="ct"><span class="cti">⬡</span>Paramètres de Calcul</div>
+  <div class="sh">Cotisations</div>
+  <div class="tr">
+    <div class="tlt"><div class="tn">CNAS / CACOBATPH Salariale</div><div class="td" id="td-cnas">Sécurité Sociale + Retraite + Chômage · 9%</div></div>
+    <div class="tg on" id="t-cnas" onclick="tog('cnas')"></div>
+  </div>
+  <div class="tr">
+    <div class="tlt"><div class="tn">IRG — Impôt sur le Revenu Global</div><div class="td">Barème progressif mensuel 2024</div></div>
+    <div class="tg on" id="t-irg" onclick="tog('irg')"></div>
+  </div>
+  <div class="tr">
+    <div class="tlt"><div class="tn">Abattement Forfaitaire 40%</div><div class="td">Min 1 000 DA · Max 1 500 DA/mois</div></div>
+    <div class="tg on" id="t-abat" onclick="tog('abat')"></div>
+  </div>
+  <div class="sh" style="margin-top:12px">Affichage</div>
+  <div class="tr">
+    <div class="tlt"><div class="tn">Charges Patronales</div><div class="td" id="td-pat">Cotisation employeur · 26% (CNAS)</div></div>
+    <div class="tg on" id="t-pat" onclick="tog('pat')"></div>
+  </div>
+  <div class="tr">
+    <div class="tlt"><div class="tn">Projection Annuelle (×12)</div><div class="td">Résumé sur 12 mois</div></div>
+    <div class="tg on" id="t-ann" onclick="tog('ann')"></div>
+  </div>
+  <button class="cbtn" onclick="calc();scrollToRes();"><span class="shine"></span>⚡ CALCULER LA FICHE DE PAIE</button>
+</div>
+
+<!-- ═══ RESULTS ═══ -->
+<div class="rp" id="rp">
+  <div class="rptit"><span>◈</span>Fiche de Paie Calculée</div>
+
+  <!-- Big NET -->
+  <div class="big-net">
+    <div class="big-net-val anim" id="r-net">— DA</div>
+    <div class="big-net-sub" id="r-net-sub">Mensuel · —</div>
+  </div>
+
+  <!-- Summary band -->
+  <div class="fp-band">
+    <div class="fp-item"><div class="fp-lbl">Salaire Brut Total</div><div class="fp-val c anim" id="r-brut">—</div></div>
+    <div class="fp-item"><div class="fp-lbl">Total Déductions</div><div class="fp-val re anim" id="r-ded">—</div></div>
+    <div class="fp-item"><div class="fp-lbl">Taux Net/Brut</div><div class="fp-val gr anim" id="r-rat">—</div></div>
+    <div class="fp-item"><div class="fp-lbl">IRG Mensuel</div><div class="fp-val re anim" id="r-irg">—</div></div>
+  </div>
+
+  <!-- GAINS TABLE -->
+  <div class="bdt g">Éléments du Salaire Brut</div>
+  <table><tbody id="tb-gains"></tbody></table>
+
+  <!-- DEDUCTIONS TABLE -->
+  <div class="bdt">Déductions & Retenues</div>
+  <table><tbody id="tb-ded"></tbody></table>
+
+  <!-- BARS -->
+  <div class="bdt" style="margin-top:14px">Répartition Visuelle</div>
+  <div id="bc"></div>
+
+  <!-- PATRON TABLE -->
+  <div id="pat-wrap">
+    <div class="bdt">Charges Patronales (Employeur)</div>
+    <table><tbody id="tb-pat"></tbody></table>
+  </div>
+
+  <!-- ANNUAL -->
+  <div id="ann-wrap">
+    <div class="bdt" style="margin-top:14px">Projection Annuelle</div>
+    <div class="ys" id="ys"></div>
+  </div>
+
+  <div class="act">
+    <button class="ab" onclick="window.print()">🖨 Imprimer</button>
+    <button class="ab" onclick="resetForm()">↺ Réinitialiser</button>
+  </div>
+
+  <div class="notice">
+    <strong>⚠ Références légales :</strong> IRG — Barème mensuel 2024 (LFC). CNAS salariale 9% (Décret 96-99). CACOBATPH — caisse spécifique BTP. IEP : 1%/an d'ancienneté, max 25% (Convention Collective). Prime de panier et transport : exonérées IRG (Art. 67 CTCA). H.Sup : 50%/75%/100% selon loi 90-11.
+  </div>
+</div>
+
+<!-- SHARE -->
+<div class="ss" id="share-sec">
+  <div class="stit"><em>📤</em>Partager les Résultats</div>
+  <div class="sg">
+    <a href="#" class="sb sb-wa" onclick="sWA(event)">
+      <span class="si"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></span>
+      WhatsApp
+    </a>
+    <a href="#" class="sb sb-ms" onclick="sMS(event)">
+      <span class="si"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.652V24l4.088-2.242c1.092.3 2.246.464 3.443.464 6.627 0 12-4.975 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z"/></svg></span>
+      Messenger
+    </a>
+    <button class="sb sb-cp" onclick="copyRes()"><span class="si">📋</span> Copier</button>
+    <button class="sb sb-nt" onclick="nShare()"><span class="si">🔗</span> <span id="nstxt">Partager</span></button>
+  </div>
+</div>
+
+</div><!-- /W -->
+<footer>SalaryCalc DZ Pro &nbsp;·&nbsp; <strong>Barème Fiscal 2024</strong> &nbsp;·&nbsp; CNAS · CACOBATPH · IRG · IEP · Algérie</footer>
+
+<!-- BOTTOM NAV -->
+<nav class="bnav">
+  <button class="nb" onclick="window.scrollTo({top:0,behavior:'smooth'})"><span class="ni">🏠</span>Accueil</button>
+  <button class="nb nb-calc" onclick="calc();scrollToRes();"><span class="ni">⚡</span>Calculer</button>
+  <button class="nb" onclick="scrollToRes()"><span class="ni">📊</span>Résultats</button>
+  <button class="nb nb-share" onclick="scrollToShare()"><span class="ni">📤</span>Partager</button>
+</nav>
+
+<script>
+// ═══════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════
+let mode = 'bn';
+const O = {cnas:true,irg:true,abat:true,pat:true,ann:true};
+
+// Sector config: { label, cnasS, cnasP, label_cnas, label_pat }
+const SECTORS = {
+  prive:    { lbl:'Secteur Privé — CNAS',      cnasS:.09, cnasP:.26,
+              info:null },
+  public:   { lbl:'Secteur Public — CNAS',     cnasS:.09, cnasP:.26,
+              info:'<strong>Secteur Public :</strong> Mêmes taux CNAS (9% salarial, 26% patronal). L\'IEP est plafonnée à 25%. Abattement 40% appliqué sur salaire de base + indemnités réglementaires.' },
+  btp:      { lbl:'BTP — CACOBATPH',           cnasS:.09, cnasP:.25,
+              info:'<strong>CACOBATPH</strong> (Caisse des Congés Payés et Chômage Intempéries – BTP) : Salariale 9% (identique CNAS). Patronale 25% dont : Retraite 10.5%, SS 12%, AT 1.25%, Chômage Intempéries 0.5%, FNAC 0.5%, Retraite Anticipée 0.25%. Congés payés gérés par la caisse.' },
+  cadre:    { lbl:'Cadre Supérieur — CNAS',    cnasS:.09, cnasP:.26,
+              info:'<strong>Cadre Supérieur :</strong> Taux CNAS identiques. Pas de plafond spécifique sur IRG. L\'IEP peut être remplacée par une prime d\'ancienneté conventionnelle.' },
+  etranger: { lbl:'Société Étrangère',         cnasS:.09, cnasP:.26,
+              info:'<strong>Société Étrangère :</strong> Personnel algérien : mêmes cotisations CNAS. Personnel expatrié : cotisations selon convention bilatérale de Sécurité Sociale.' },
+};
+
+// ═══════════════════════════════════════
+//  SECTOR CHANGE
+// ═══════════════════════════════════════
+function onSectChange() {
+  const s = SECTORS[document.getElementById('sect').value];
+  const infoBox = document.getElementById('sect-info');
+  const isBTP = document.getElementById('sect').value === 'btp';
+  document.getElementById('td-cnas').textContent =
+    isBTP ? 'CACOBATPH · Taux salarial 9%' : 'Sécurité Sociale + Retraite + Chômage · 9%';
+  document.getElementById('td-pat').textContent =
+    isBTP ? 'CACOBATPH Patronale · 25%' : 'CNAS Patronale · 26%';
+  if (s.info) { infoBox.innerHTML = s.info; infoBox.classList.add('show'); }
+  else infoBox.classList.remove('show');
+  calc();
+}
+
+// ═══════════════════════════════════════
+//  MODE
+// ═══════════════════════════════════════
+function setMode(m) {
+  mode = m;
+  document.getElementById('btn-bn').classList.toggle('on', m==='bn');
+  document.getElementById('btn-nb').classList.toggle('on', m==='nb');
+  const bn = m==='bn';
+  document.getElementById('ict').textContent = bn ? 'Salaire de Base Brut' : 'Salaire de Base Net';
+  document.getElementById('lbs').textContent = bn ? 'SALAIRE DE BASE (DA)' : 'SALAIRE NET CIBLE (DA)';
+  document.getElementById('lbh').textContent = bn ? 'S.N.B min: 20 000 DA' : 'Montant perçu souhaité';
+  document.getElementById('sdl').textContent = bn ? 'Salaire de base saisi' : 'Salaire net cible';
+  calc();
+}
+
+// ═══════════════════════════════════════
+//  TOGGLES
+// ═══════════════════════════════════════
+function tog(k) { O[k]=!O[k]; document.getElementById('t-'+k).classList.toggle('on',O[k]); calc(); }
+
+// ═══════════════════════════════════════
+//  SYNC
+// ═══════════════════════════════════════
+function sync(src) {
+  const inp = document.getElementById('si'), sld = document.getElementById('sr');
+  let v;
+  if (src==='i') { v=parseFloat(inp.value)||0; sld.value=Math.min(v,600000); }
+  else           { v=parseFloat(sld.value)||0; inp.value=v; }
+  const p=(Math.min(v,600000)/600000)*100;
+  sld.style.background=`linear-gradient(90deg,var(--cy) ${p}%,var(--pan2) ${p}%)`;
+  document.getElementById('sdv').textContent=fmtS(v);
+  calcIEP(); calc();
+}
+
+// ═══════════════════════════════════════
+//  IEP CALC
+// ═══════════════════════════════════════
+function calcIEP() {
+  const base = parseFloat(document.getElementById('si').value)||0;
+  const anc  = Math.min(parseFloat(document.getElementById('i-anc').value)||0, 25);
+  const pct  = anc; // 1% per year, max 25%
+  const iepVal = base * pct / 100;
+  document.getElementById('i-iep-pct').value = pct;
+  document.getElementById('iep-val').textContent = fmt(iepVal);
+  const badge = document.getElementById('iep-badge');
+  if (anc > 0) badge.classList.remove('hidden');
+  else badge.classList.add('hidden');
+  calc();
+}
+
+// ═══════════════════════════════════════
+//  IRG BARÈME 2024 MENSUEL
+// ═══════════════════════════════════════
+function IRG(b) {
+  if(b<=10000)  return 0;
+  if(b<=30000)  return (b-10000)*0.20;
+  if(b<=120000) return 4000+(b-30000)*0.30;
+  return 31000+(b-120000)*0.35;
+}
+
+// ═══════════════════════════════════════
+//  MAIN CALC
+// ═══════════════════════════════════════
+function calc() {
+  const sect = document.getElementById('sect').value;
+  const S = SECTORS[sect];
+
+  // Inputs
+  const base   = parseFloat(document.getElementById('si').value)||0;
+  const jours  = parseFloat(document.getElementById('i-jours').value)||26;
+  const transp = parseFloat(document.getElementById('i-transp').value)||0;
+  const panier1= parseFloat(document.getElementById('i-panier').value)||0;
+  const panier = panier1 * jours;
+  document.getElementById('i-panier-total').value = Math.round(panier)||0;
+  const logmt  = parseFloat(document.getElementById('i-logmt').value)||0;
+
+  const anc    = Math.min(parseFloat(document.getElementById('i-anc').value)||0,25);
+  const iep    = base * anc / 100;
+
+  const rend   = parseFloat(document.getElementById('i-rend').value)||0;
+  const nuis   = parseFloat(document.getElementById('i-nuis').value)||0;
+  const zone   = parseFloat(document.getElementById('i-zone').value)||0;
+  const astr   = parseFloat(document.getElementById('i-astr').value)||0;
+  const m13    = parseFloat(document.getElementById('i-13m').value)||0;
+  const aut    = parseFloat(document.getElementById('i-aut').value)||0;
+
+  // Heures sup (taux horaire = base / 173.33)
+  const th     = base / 173.33;
+  const hs50   = (parseFloat(document.getElementById('i-hs50').value)||0) * th * 1.50;
+  const hs75   = (parseFloat(document.getElementById('i-hs75').value)||0) * th * 1.75;
+  const hs100  = (parseFloat(document.getElementById('i-hs100').value)||0) * th * 2.00;
+  const hsTot  = hs50 + hs75 + hs100;
+  document.getElementById('i-hs-tot').value = Math.round(hsTot)||0;
+
+  // Exonérées (non soumises CNAS ni IRG)
+  const exo = transp + panier + logmt;
+
+  // Imposables (soumises CNAS + IRG)
+  const primesImp = iep + rend + nuis + zone + astr + m13 + aut + hsTot;
+
+  let brut, net, cnas, irg, abat;
+
+  if (mode === 'bn') {
+    brut = base + primesImp; // base imposable
+    cnas = O.cnas ? brut * S.cnasS : 0;
+    let ni = brut - cnas; // net imposable avant abattement
+    abat = O.abat ? Math.min(Math.max(ni*0.40,1000),1500) : 0;
+    irg  = O.irg  ? IRG(Math.max(0, ni - abat)) : 0;
+    net  = brut - cnas - irg + exo;
+  } else {
+    // Net → Brut (on cherche base imposable)
+    const target = (parseFloat(document.getElementById('si').value)||0) - exo;
+    let brutImp = Math.max(target * 1.12, 0);
+    for(let i=0;i<80;i++){
+      let tc=O.cnas?brutImp*S.cnasS:0, tni=brutImp-tc;
+      let ta=O.abat?Math.min(Math.max(tni*0.40,1000),1500):0;
+      let ti=O.irg?IRG(Math.max(0,tni-ta)):0;
+      let est=brutImp-tc-ti; if(Math.abs(est-target)<0.5) break;
+      brutImp+=(target-est)*0.9;
+    }
+    brut = Math.max(brutImp,0);
+    cnas = O.cnas ? brut*S.cnasS : 0;
+    let ni2 = brut - cnas;
+    abat = O.abat ? Math.min(Math.max(ni2*0.40,1000),1500) : 0;
+    irg  = O.irg  ? IRG(Math.max(0,ni2-abat)) : 0;
+    net  = brut - cnas - irg + exo;
+  }
+
+  const brutTotal = brut + exo; // total perçu brut
+  const dedTotal  = cnas + irg;
+  const ratio     = brutTotal>0 ? ((net/brutTotal)*100).toFixed(1) : 0;
+
+  // CNAS sub
+  const cnasRates = sect==='btp'
+    ? {ss:.09,ret:.6975,chom:.03,ant:.0025,other:0} // CACOBATPH approx
+    : {ss:.1667,ret:.75,chom:.0556,ant:.0278,other:0};
+  // (multipliers of total cnas = 9%)
+  const c_ss   = cnas * (1.5/9), c_ret=cnas*(6.75/9), c_ch=cnas*(0.5/9), c_ant=cnas*(0.25/9);
+
+  // Patron
+  const cnasP = S.cnasP;
+  const pTot  = brut * cnasP;
+  let pSS, pRet, pCh, pAT, pAn, pFN;
+  if (sect === 'btp') {
+    pSS=brut*.12; pRet=brut*.105; pCh=brut*.005; pAT=brut*.0125; pAn=brut*.0025; pFN=brut*.005;
+  } else {
+    pSS=brut*.125; pRet=brut*.105; pCh=brut*.01; pAT=brut*.0125; pAn=brut*.0025; pFN=brut*.005;
+  }
+
+  // ── DOM ──
+  set('r-net', fmt(net));
+  set('r-net-sub', `Mensuel · Net/Brut = ${ratio}% · ${SECTORS[sect].lbl}`);
+  set('r-brut', fmt(brutTotal));
+  set('r-ded',  fmt(dedTotal));
+  set('r-rat',  ratio+'%');
+  set('r-irg',  fmt(irg));
+
+  // GAINS TABLE
+  const tg=document.getElementById('tb-gains'); tg.innerHTML='';
+  R(tg,'Salaire de Base',fmt(base),'','rs rb');
+  if(iep>0)   R(tg,`IEP (${anc}% ancienneté)`,fmt(iep),'imposable','rg');
+  if(rend>0)  R(tg,'Prime de Rendement',fmt(rend),'imposable','rg');
+  if(nuis>0)  R(tg,'Prime de Nuisance',fmt(nuis),'imposable','rg');
+  if(zone>0)  R(tg,'Prime de Zone/Région',fmt(zone),'imposable','rg');
+  if(astr>0)  R(tg,'Prime d\'Astreinte',fmt(astr),'imposable','rg');
+  if(m13>0)   R(tg,'13ème Mois (1/12)',fmt(m13),'imposable','rg');
+  if(hsTot>0) R(tg,'Heures Supplémentaires',fmt(hsTot),'imposable','ro');
+  if(aut>0)   R(tg,'Autres Primes',fmt(aut),'imposable','rg');
+  Sp(tg);
+  R(tg,'Sous-total Imposable',fmt(brut),'','rs rb');
+  Sp(tg);
+  if(transp>0) R(tg,'+ Transport (exonéré)',fmt(transp),'exo.','ri');
+  if(panier>0) R(tg,`+ Panier (${fmt(panier1)}/j × ${jours}j)`,fmt(panier),'exo.','ri');
+  if(logmt>0)  R(tg,'+ Logement (exonéré)',fmt(logmt),'exo.','ri');
+  Sp(tg);
+  R(tg,'= SALAIRE BRUT TOTAL',fmt(brutTotal),'','rs rb');
+
+  // DEDUCTIONS TABLE
+  const td2=document.getElementById('tb-ded'); td2.innerHTML='';
+  const sLabel = sect==='btp'?'− CACOBATPH Salariale':'− CNAS Totale Salariale';
+  if(O.cnas){
+    R(td2,sLabel,fmt(cnas),`${(S.cnasS*100).toFixed(0)}%`,'rd');
+    R(td2,'    • Sécurité Sociale',fmt(c_ss),'1.50%','rd');
+    R(td2,'    • Retraite',fmt(c_ret),'6.75%','rd');
+    R(td2,'    • Chômage'+(sect==='btp'?' Intempéries':''),fmt(c_ch),'0.50%','rd');
+    R(td2,'    • Retraite Anticipée',fmt(c_ant),'0.25%','rd');
+  }
+  if(O.abat) R(td2,'Abattement Forfaitaire −40%','−'+fmt(abat),'','ri');
+  if(O.irg)  R(td2,'− IRG (barème progressif)',fmt(irg),'prog.','rd');
+  Sp(td2);
+  R(td2,'= TOTAL RETENUES',fmt(dedTotal),'','rs rd');
+  Sp(td2);
+  R(td2,'= NET À PERCEVOIR',fmt(net),'','rs rn');
+
+  // BARS
+  const bc=document.getElementById('bc'); bc.innerHTML='';
+  const bars=[
+    {n:'Salaire Net',v:net,c:'bg-gr',vc:'var(--gr)'},
+    {n:'CNAS'+(sect==='btp'?'/CACOBATPH':''),v:cnas,c:'bg-cy',vc:'var(--cy)'},
+    {n:'IRG',v:irg,c:'bg-re',vc:'var(--re)'},
+    ...(exo>0?[{n:'Indemnités Exo.',v:exo,c:'bg-go',vc:'var(--go)'}]:[]),
+    ...(hsTot>0?[{n:'H. Supplémentaires',v:hsTot,c:'bg-pu',vc:'var(--pu)'}]:[]),
+  ];
+  bars.forEach(b=>{
+    const p=brutTotal>0?(b.v/brutTotal*100).toFixed(1):0;
+    bc.innerHTML+=`<div class="bi">
+      <div class="bh"><span class="bn">${b.n}</span>
+        <span class="bv" style="color:${b.vc}">${fmt(b.v)} · ${p}%</span></div>
+      <div class="bt"><div class="bf ${b.c}" style="width:0" data-w="${p}%"></div></div>
+    </div>`;
+  });
+  setTimeout(()=>document.querySelectorAll('.bf[data-w]')
+    .forEach(e=>e.style.width=e.dataset.w),70);
+
+  // PATRON
+  const pw=document.getElementById('pat-wrap');
+  pw.classList.toggle('hidden',!O.pat);
+  if(O.pat){
+    const tp=document.getElementById('tb-pat'); tp.innerHTML='';
+    R(tp,`${sect==='btp'?'CACOBATPH Patronale':'CNAS Patronale'} (${(cnasP*100).toFixed(0)}%)`,fmt(pTot),`${(cnasP*100).toFixed(0)}%`,'rs rb');
+    R(tp,'  • Sécurité Sociale',fmt(pSS),sect==='btp'?'12.00%':'12.50%','');
+    R(tp,'  • Retraite',fmt(pRet),'10.50%','');
+    R(tp,'  • Chômage'+(sect==='btp'?' Intempéries':''),fmt(pCh),sect==='btp'?'0.50%':'1.00%','');
+    R(tp,'  • Accidents du Travail',fmt(pAT),'1.25%','');
+    R(tp,'  • Retraite Anticipée',fmt(pAn),'0.25%','');
+    R(tp,'  • FNAC',fmt(pFN),'0.50%','');
+    Sp(tp);
+    R(tp,'= Coût Total Employeur',fmt(brutTotal+pTot),'','rs rn');
+  }
+
+  // ANNUAL
+  const aw=document.getElementById('ann-wrap');
+  aw.classList.toggle('hidden',!O.ann);
+  if(O.ann){
+    document.getElementById('ys').innerHTML=`
+      <div class="yi"><div class="yl">Brut/an</div><div class="yv" style="color:var(--cy)">${fmtM(brutTotal*12)}</div></div>
+      <div class="yi"><div class="yl">Net/an</div><div class="yv" style="color:var(--go)">${fmtM(net*12)}</div></div>
+      <div class="yi"><div class="yl">CNAS/an</div><div class="yv" style="color:var(--t2)">${fmtM(cnas*12)}</div></div>
+      <div class="yi"><div class="yl">IRG/an</div><div class="yv" style="color:var(--re)">${fmtM(irg*12)}</div></div>
+      <div class="yi"><div class="yl">Patron/an</div><div class="yv" style="color:var(--t2)">${fmtM(pTot*12)}</div></div>
+    `;
+  }
+
+  ['r-net','r-brut','r-ded','r-rat','r-irg'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.classList.remove('anim'); void el.offsetWidth; el.classList.add('anim');
+  });
+}
+
+// ═══════════════════════════════════════
+//  SHARE
+// ═══════════════════════════════════════
+function buildTxt() {
+  const sect=document.getElementById('sect');
+  const sectLbl=sect.options[sect.selectedIndex].text;
+  const anc=parseFloat(document.getElementById('i-anc').value)||0;
+  const base=parseFloat(document.getElementById('si').value)||0;
+  const iep=base*anc/100;
+  const panier1=parseFloat(document.getElementById('i-panier').value)||0;
+  const jours=parseFloat(document.getElementById('i-jours').value)||26;
+  const transp=parseFloat(document.getElementById('i-transp').value)||0;
+  const hsTot=parseFloat(document.getElementById('i-hs-tot').value)||0;
+  const brutTxt=document.getElementById('r-brut').textContent;
+  const netTxt=document.getElementById('r-net').textContent;
+  const ratTxt=document.getElementById('r-rat').textContent;
+  const irgTxt=document.getElementById('r-irg').textContent;
+
+  let lines=`📊 *SalaryCalc DZ Pro — Fiche de Paie*\n`;
+  lines+=`🏢 Secteur : ${sectLbl}\n`;
+  lines+=`━━━━━━━━━━━━━━━━━━━━━\n`;
+  lines+=`💼 Salaire Brut Total : *${brutTxt}*\n`;
+  lines+=`💰 Salaire Net        : *${netTxt}*\n`;
+  lines+=`📈 Taux Net/Brut      : *${ratTxt}*\n`;
+  lines+=`🏛 IRG Mensuel        : ${irgTxt}\n`;
+  if(anc>0) lines+=`🎖 IEP (${anc} ans)    : ${fmt(iep)}\n`;
+  if(transp>0) lines+=`🚌 Transport         : ${fmt(transp)}\n`;
+  if(panier1>0) lines+=`🍽 Panier (${panier1}DA×${jours}j) : ${fmt(panier1*jours)}\n`;
+  if(hsTot>0) lines+=`⏱ H.Supplémentaires : ${fmt(hsTot)}\n`;
+  lines+=`━━━━━━━━━━━━━━━━━━━━━\n`;
+  lines+=`🇩🇿 Barème Algérie 2024 · CNAS/CACOBATPH · IRG\n`;
+  lines+=`📱 Calculé avec SalaryCalc DZ Pro`;
+  return lines;
+}
+function sWA(e){ e.preventDefault(); window.open('https://wa.me/?text='+encodeURIComponent(buildTxt()),'_blank'); }
+function sMS(e){
+  e.preventDefault();
+  window.location.href='fb-messenger://share/?link='+encodeURIComponent('https://salarycalc-dz.web.app')+'&app_id=291494419107518';
+  setTimeout(()=>{ copyRes(true); showT('📋 Copié — coller dans Messenger !'); },900);
+}
+function copyRes(silent=false){
+  const txt=buildTxt().replace(/\*/g,'');
+  if(navigator.clipboard){ navigator.clipboard.writeText(txt).then(()=>{ if(!silent) showT('✅ Résumé copié !'); }); }
+  else{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);if(!silent)showT('✅ Copié !');}
+}
+function nShare(){
+  if(navigator.share){navigator.share({title:'SalaryCalc DZ',text:buildTxt().replace(/\*/g,'')}).catch(()=>copyRes());}
+  else copyRes();
+}
+
+// ═══════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════
+function fmt(n){return Math.round(n).toLocaleString('fr-DZ')+' DA';}
+function fmtS(n){return Math.round(n).toLocaleString('fr-DZ')+' DA';}
+function fmtM(n){return n>=1e6?(n/1e6).toFixed(2)+' M DA':Math.round(n).toLocaleString('fr-DZ')+' DA';}
+function set(id,v){document.getElementById(id).textContent=v;}
+function showT(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);}
+function R(tb,l,v,p,c=''){const tr=document.createElement('tr');if(c)tr.className=c;tr.innerHTML=`<td class="lbl">${l}</td><td class="pct">${p}</td><td>${v}</td>`;tb.appendChild(tr);}
+function Sp(tb){tb.innerHTML+=`<tr><td colspan="3" style="height:4px"></td></tr>`;}
+function scrollToRes(){document.getElementById('rp').scrollIntoView({behavior:'smooth',block:'start'});}
+function scrollToShare(){document.getElementById('share-sec').scrollIntoView({behavior:'smooth',block:'start'});}
+function resetForm(){
+  ['si','i-transp','i-panier','i-logmt','i-anc','i-rend','i-nuis','i-zone','i-astr','i-13m','i-aut','i-hs50','i-hs75','i-hs100'].forEach(id=>{
+    document.getElementById(id).value=id==='si'?80000:0;
+  });
+  document.getElementById('i-jours').value=26;
+  sync('i');
+}
+if(!navigator.share) document.getElementById('nstxt').textContent='Copier';
+
+// INIT
+sync('i');
+</script>
+</body>
+</html>
